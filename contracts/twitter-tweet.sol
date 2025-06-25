@@ -5,10 +5,16 @@ contract twittertweet{
     address public  owner;
     bool public pause;
     uint16 public  MAX_LENGHT = 280;
+    event gettweetcreate(address author,uint256 id,string tweet,uint256 timestamp,uint256 likes);
+    event eventliketweet(address likeuser,address author,uint256 id,uint256 likes);
+    event eventdisliketweet(address dislikeuser,address author ,uint256 id,uint256 likes);
+
+
     constructor() {
         owner = msg.sender;
         pause = false;
     }
+
     modifier onlyowner(){
         require(msg.sender == owner,"only owner can write the tweet");
         _;
@@ -50,6 +56,7 @@ contract twittertweet{
             likes:0
         });
         tweets[msg.sender].push(newtweet);
+        emit gettweetcreate(newtweet.author, newtweet.id, newtweet.content, newtweet.timestamp, newtweet.likes);
 
     }
 
@@ -62,12 +69,14 @@ contract twittertweet{
     function liketweet(address author,uint256 id) external{
         require(tweets[author][id].id==id,"the tweet is not found;");
         tweets[author][id].likes++;
+        emit eventliketweet(msg.sender, author ,  id,tweets[author][id].likes);
 
     }
     function disliketweet( address author,uint256 id) external{
         require(tweets[author][id].id==id,"the tweet is not found");
-        
+
         tweets[author][id].likes--;
+        emit eventdisliketweet(msg.sender, author , id,tweets[author][id].likes);
 
 
     }
