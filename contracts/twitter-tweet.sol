@@ -57,9 +57,7 @@ contract twittertweet{
         });
         tweets[msg.sender].push(newtweet);
         emit gettweetcreate(newtweet.author, newtweet.id, newtweet.content, newtweet.timestamp, newtweet.likes);
-
     }
-
     function gettweet(uint256 _i) public view returns (tweet memory){
         return tweets[msg.sender][_i];
     }
