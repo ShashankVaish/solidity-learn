@@ -11,6 +11,105 @@
 				"type": "constructor"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "dislikeuser",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "author",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "likes",
+						"type": "uint256"
+					}
+				],
+				"name": "eventdisliketweet",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "likeuser",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "author",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "likes",
+						"type": "uint256"
+					}
+				],
+				"name": "eventliketweet",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "author",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "tweet",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "likes",
+						"type": "uint256"
+					}
+				],
+				"name": "gettweetcreate",
+				"type": "event"
+			},
+			{
 				"inputs": [],
 				"name": "MAX_LENGHT",
 				"outputs": [
@@ -290,11 +389,11 @@
 	},
 	"sources": {
 		"contracts/twitter-tweet.sol": {
-			"keccak256": "0x932c1baa7bae27f0ea37fb1f368188cb004a317f0d783d765c2330f2514892d6",
+			"keccak256": "0x40a3cbfcbb7001a2a9519363890de9019f76ad9d49c679082ba0e2393af2c473",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0cd11d98c6aad405289d42dcaa59cd4546919345b39c34689ab6f940f1e670fc",
-				"dweb:/ipfs/QmVwG3jb5JQMjJQ5RHXT77THUEjsJZDQaAxg3E65EA7msq"
+				"bzz-raw://fb3aa8a486f9fab1c2ae3a8b80b525aa822a4a5f73c1f2b93fb6ccfe503bb485",
+				"dweb:/ipfs/QmaebHxatdy3jhp8WyE9PoNBkAmJ86qpfvTh4bPdovYBxB"
 			]
 		}
 	},
