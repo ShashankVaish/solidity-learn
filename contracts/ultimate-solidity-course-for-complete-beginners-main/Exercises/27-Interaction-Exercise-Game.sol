@@ -9,12 +9,14 @@ interface IUser {
     function createUser(address userAddress, string memory username) external;
 }
 
-contract Game {
+contract Game  {
     uint public gameCount;
     IUser public userContract;
 
     constructor(address _userContractAddress) {
+        
         // CODE HERE
+
     }
 
     function startGame(string memory username) external {

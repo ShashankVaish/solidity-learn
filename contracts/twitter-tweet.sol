@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
-
-contract twittertweet{
-    address public  owner;
+import "@openzeppelin/contracts/access/Ownable.sol";
+contract twittertweet is Ownable(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4){
+    // address public  owner;
     bool public pause;
     uint16 public  MAX_LENGHT = 280;
     event gettweetcreate(address author,uint256 id,string tweet,uint256 timestamp,uint256 likes);
@@ -11,28 +11,25 @@ contract twittertweet{
 
 
     constructor() {
-        owner = msg.sender;
+        
+        // owner = msg.sender;
         pause = false;
     }
 
-    modifier onlyowner(){
-        require(msg.sender == owner,"only owner can write the tweet");
-        _;
-
-    }
+   
     modifier checkpause(){
         require(pause == false,"contract is pause");
         _;
     }
-    function pauseed() public onlyowner{
+    function pauseed() public onlyOwner{
         // require(!pause,"contract is pause");
         pause = true;   
     }
-    function unpause() public onlyowner{
+    function unpause() public  onlyOwner{
         pause = false;
 
     }
-    function changetweetlenght(uint16 CHANGE_TWEET_LENGHT) public checkpause {
+    function changetweetlenght(uint16 CHANGE_TWEET_LENGHT) public onlyOwner checkpause {
         MAX_LENGHT = CHANGE_TWEET_LENGHT;
 
     }
