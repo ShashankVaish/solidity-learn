@@ -16,12 +16,16 @@ contract Game  {
     constructor(address _userContractAddress) {
         
         // CODE HERE
+        userContract = IUser(_userContractAddress);
+
 
     }
 
     function startGame(string memory username) external {
         // Create a user in the User contract
+        userContract.createUser(msg.sender, username);
         gameCount++;
+
     
         // CODE HERE
     }

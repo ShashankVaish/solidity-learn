@@ -17,6 +17,13 @@ contract User {
     function createUser(address userAddress, string memory username) external {
         require(players[userAddress].playerAddress == address(0), "User already exists");
 
+
         // Create a new player here 👇
+        Player memory newplayer = Player({
+            playerAddress: userAddress,
+            username: username,
+            score: 0
+        });
+        players[userAddress] = newplayer;
     }
 }
