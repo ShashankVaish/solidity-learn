@@ -17,11 +17,13 @@ interface IProfile {
         string displayName;
         string bio;
     }
+    function getProfile(address _user) external view returns  ( UserProfile memory );
     
     // CODE HERE
 }
 
 contract Twitter is Ownable {
+    
 
     uint16 public MAX_TWEET_LENGTH = 280;
 
@@ -40,12 +42,20 @@ contract Twitter is Ownable {
     event TweetCreated(uint256 id, address author, string content, uint256 timestamp);
     event TweetLiked(address liker, address tweetAuthor, uint256 tweetId, uint256 newLikeCount);
     event TweetUnliked(address unliker, address tweetAuthor, uint256 tweetId, uint256 newLikeCount);
+    constructor(address _profileContract) Ownable(msg.sender) {
+       profileContract = IProfile(_profileContract);
+    }
+    modifier onlyRegistered(){
 
-    constructor(address _profileContract) {
-       
+        IProfile.UserProfile memory user = profileContract.getProfile(msg.sender);
+        require(bytes(user.displayName).length>0,"you must have displayname ");
+
+        _;
     }
 
-    function changeTweetLength(uint16 newTweetLength) public onlyOwner {
+    
+
+    function changeTweetLength(uint16 newTweetLength) public onlyOwner onlyRegistered {
         MAX_TWEET_LENGTH = newTweetLength;
     }
 
@@ -59,7 +69,7 @@ contract Twitter is Ownable {
         return totalLikes;
     }
 
-    function createTweet(string memory _tweet) public {
+    function createTweet(string memory _tweet) public onlyRegistered {
         require(bytes(_tweet).length <= MAX_TWEET_LENGTH, "Tweet is too long bro!" );
 
         Tweet memory newTweet = Tweet({
@@ -76,7 +86,7 @@ contract Twitter is Ownable {
         emit TweetCreated(newTweet.id, newTweet.author, newTweet.content, newTweet.timestamp);
     }
 
-    function likeTweet(address author, uint256 id) external {  
+    function likeTweet(address author, uint256 id) external onlyRegistered {  
         require(tweets[author][id].id == id, "TWEET DOES NOT EXIST");
 
         tweets[author][id].likes++;
@@ -85,7 +95,7 @@ contract Twitter is Ownable {
         emit TweetLiked(msg.sender, author, id, tweets[author][id].likes);
     }
 
-    function unlikeTweet(address author, uint256 id) external {
+    function unlikeTweet(address author, uint256 id) external onlyRegistered{
         require(tweets[author][id].id == id, "TWEET DOES NOT EXIST");
         require(tweets[author][id].likes > 0, "TWEET HAS NO LIKES");
         
@@ -98,7 +108,7 @@ contract Twitter is Ownable {
         return tweets[msg.sender][_i];
     }
 
-    function getAllTweets(address _owner) public view returns (Tweet[] memory ){
+    function getAllTweets(address _owner) public view returns (Tweet[] memory ) {
         return tweets[_owner];
     }
 
